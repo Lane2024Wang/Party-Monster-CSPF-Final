@@ -1,111 +1,110 @@
-// 控制圆形旋转状态
-let isRotating = false; // 是否正在旋转
-let rotationTimeout = null; // 停止旋转的定时器
+let isRotating = false;  
+let rotationTimeout = null;  
 
-// 动画取消定时器
+ 
 let hoverAnimationTimeout = null; 
-let circleTimeout = null; // 延迟圆形变化的定时器
+let circleTimeout = null;  
 
 function setupRectangles(containerId, rectanglesConfig) {
     const container = document.getElementById(containerId);
 
-    // 创建圆形元素
+     
     const hoverCircle = document.createElement('div');
     hoverCircle.id = 'hover-circle';
 
-    // 创建图片元素放入圆形
+     
     const hoverImage = document.createElement('img');
     hoverCircle.appendChild(hoverImage);
     container.parentElement.appendChild(hoverCircle);
 
-    // 页面加载时让圆形持续旋转
+     
     document.addEventListener('DOMContentLoaded', () => {
         const hoverCircle = document.getElementById('hover-circle');
-        hoverCircle.classList.add('rotating'); // 添加旋转类
+        hoverCircle.classList.add('rotating');  
     });
 
-    // 遍历矩形配置生成每个矩形
+     
     rectanglesConfig.forEach((config, index) => {
-        // 创建矩形
+         
         const rectangle = document.createElement('div');
         rectangle.className = 'rectangle';
         rectangle.setAttribute('data-title', config.title);
         rectangle.setAttribute('data-desc', config.desc);
-        rectangle.setAttribute('data-img-index', config.imgIndex); // 图片索引
+        rectangle.setAttribute('data-img-index', config.imgIndex);  
 
-        // 动态设置位置和 z-index
+         
         rectangle.style.bottom = '-25px';
-        rectangle.style.height = `${(index + 2) * 5 + 125}px`; // 每个矩形高度递增 25px
-        rectangle.style.right = `${index * 25 + 60}px`; // 每个矩形向右递增 25px
-        rectangle.style.zIndex = `${100 - index}`; // z-index 倒序排列
+        rectangle.style.height = `${(index + 2) * 5 + 125}px`;  
+        rectangle.style.right = `${index * 25 + 60}px`;  
+        rectangle.style.zIndex = `${100 - index}`;  
         hoverCircle.style.right = '850px';
 
-        // 添加解说框
+         
         const descriptionBox = document.createElement('div');
         descriptionBox.className = 'description-box';
         descriptionBox.textContent = config.desc;
         rectangle.appendChild(descriptionBox);
 
-        // 创建矩形图片容器
+         
         const imageContainer = document.createElement('div');
         imageContainer.className = 'image-container';
-        // 矩形图片
-        imageContainer.style.overflow = 'hidden'; // 默认隐藏滚动
-        imageContainer.style.top = '0'; // 高度与矩形一致
+         
+        imageContainer.style.overflow = 'hidden';  
+        imageContainer.style.top = '0';  
         imageContainer.style.display = 'flex';
-        imageContainer.style.flexDirection = 'column'; // 垂直排列图片
-        imageContainer.style.gap = '10px'; // 图片间距
-        imageContainer.style.padding = '0px'; // 内边距
-        // 加载文件夹中的图片
-        const folderName = `folder${index + 1}`; // 动态生成文件夹名
+        imageContainer.style.flexDirection = 'column';  
+        imageContainer.style.gap = '10px';  
+        imageContainer.style.padding = '0px';  
+         
+        const folderName = `folder${index + 1}`;  
         for (let i = 1; i <= config.imgCount; i++) { 
             const img = document.createElement('img');
-            img.src = `${folderName}/${i}.jpg`; // 图片路径
+            img.src = `${folderName}/${i}.jpg`;  
             img.alt = `${config.title} - Image ${i}`;
             img.style.left = '25px';
             img.style.right = '25px';
-            img.style.height = 'auto'; // 保持图片比例
+            img.style.height = 'auto';  
             imageContainer.appendChild(img);   
         }
-        // 添加图片容器到矩形
+         
         rectangle.appendChild(imageContainer);
 
-        // 添加鼠标悬停事件
+         
         rectangle.addEventListener('mouseenter', () => {
 
-            rectangle.style.height = `${(index) * 5 + 700}px`; // 展开
-            descriptionBox.style.opacity = '1'; // 显示解说框
-            imageContainer.style.overflowY = 'scroll'; // 悬浮时启用滚动
+            rectangle.style.height = `${(index) * 5 + 700}px`;  
+            descriptionBox.style.opacity = '1';  
+            imageContainer.style.overflowY = 'scroll';  
 
             circleTimeout = setTimeout(() => {
-                hoverCircle.style.right = '200px'; /* 设置位置大小 */
-                hoverCircle.style.opacity = '1'; // 显示圆形
-                hoverImage.src = `image${config.imgIndex}.jpg`; // 加载对应的图片
-            }, 100); // 延迟300毫秒
+                hoverCircle.style.right = '200px';  
+                hoverCircle.style.opacity = '1';  
+                hoverImage.src = `image${config.imgIndex}.jpg`;  
+            }, 100);  
         });
 
         rectangle.addEventListener('mouseleave', () => {
-            rectangle.style.height = `${(index + 2) * 5 + 125}px`; // 收起
-            descriptionBox.style.opacity = '0'; // 隐藏解说框
-            imageContainer.style.overflowY = 'hidden'; // 离开时隐藏滚动
+            rectangle.style.height = `${(index + 2) * 5 + 125}px`;  
+            descriptionBox.style.opacity = '0';  
+            imageContainer.style.overflowY = 'hidden';  
             hoverCircle.style.right = '700px'; 
 
         });
 
         descriptionBox.addEventListener('mouseenter', () => {
-            // 检查是否已经存在说明矩形，避免重复创建
+             
             let infoBox = document.getElementById('info-box');
             if (!infoBox) {
-                // 创建说明矩形
+                 
                 infoBox = document.createElement('div');
                 infoBox.id = 'info-box';
-                infoBox.textContent = config.infoText; // 设置说明文字内容
+                infoBox.textContent = config.infoText;  
         
-                // 将 infoBox 添加到 outer-container
+                 
                 const outerContainer = document.getElementById('outer-container');
                 outerContainer.appendChild(infoBox);
         
-                // 等待元素插入后激活滑入动画
+                 
                 setTimeout(() => {
                     infoBox.classList.add('active');
                 }, 0);
@@ -115,20 +114,20 @@ function setupRectangles(containerId, rectanglesConfig) {
         descriptionBox.addEventListener('mouseleave', () => {
             const infoBox = document.getElementById('info-box');
             if (infoBox) {
-                // 移除滑入状态
+                 
                 infoBox.classList.remove('active');
         
-                // 动画完成后移除 DOM 节点
+                 
                 setTimeout(() => {
                     if (infoBox.parentNode) {
                         infoBox.parentNode.removeChild(infoBox);
                     }
-                }, 300); // 与 CSS 的 transition 时间一致
+                }, 300);  
             }
         });
         
 
-        // 添加到容器
+         
         container.appendChild(rectangle);
     });
 }
@@ -136,31 +135,31 @@ function setupRectangles(containerId, rectanglesConfig) {
 function addElementsToOuterContainer() {
     const outerContainer = document.getElementById('outer-container');
 
-    // 创建右上角文字框
+     
     const topRightBox = document.createElement('div');
     topRightBox.id = 'top-right-box';
-    topRightBox.textContent = 'Lane\nWang'; // 替换为你的名字
+    topRightBox.textContent = 'Lane\nWang';  
     outerContainer.appendChild(topRightBox);
 
-    // 创建右下角图片框
+     
     const bottomRightBox = document.createElement('div');
     bottomRightBox.id = 'bottom-right-box';
 
-    // 添加图片到图片框
+     
     const img = document.createElement('img');
-    img.src = 'title.png'; // 替换为图片路径
-    img.alt = 'Description'; // 替换为图片描述
+    img.src = 'title.png';  
+    img.alt = 'Description';  
     bottomRightBox.appendChild(img);
 
-    // 添加图片框到 outer-container
+     
     outerContainer.appendChild(bottomRightBox);
 }
 
-// 调用函数
+ 
 addElementsToOuterContainer();
 
 
-// 配置矩形数据
+ 
 const rectanglesConfig = [
     { title: 'Studio 54', 
         desc: 'In between 1977 and 1980, ...?', 
@@ -269,5 +268,5 @@ const rectanglesConfig = [
     },
 ];
 
-// 初始化矩形
+ 
 setupRectangles('container', rectanglesConfig);
