@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+#rectangle {
+    width: 0;
+    height: 0;
+    border-left: 400px solid transparent; /* 顶边一半 */
+    border-right: 400px solid transparent; /* 顶边另一半 */
+    border-bottom: 50px solid black; /* 底边 */
+    position: relative;
+    cursor: pointer;
+}
+
+
+/* 矩形顶部的伪元素文字 */
+#rectangle::before {
+    content: "Club USA"; /* 顶部显示的标题 */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000000;
+    font-size: 16px;
+    transition: top 0.2s ease-in-out;
+}
+
+/* 矩形内部图片样式 */
+#rectangle img {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    width: auto;
+    height: auto;
+    max-width: 400px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 解说框的样式 */
+#description-box {
+    position: absolute;
+    top: auto;
+    right: 20px;
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, top 0.5s ease-in-out;
+    z-index: 10;
+}

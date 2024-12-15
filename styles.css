@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+#outer-container {
+    position: absolute; /* 作为子元素的定位上下文 */
+    width: 1500px; /* 根据需要设置宽度 */
+    height: 850px; /* 根据需要设置高度 */
+    overflow: hidden;
+    border: 0px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    height: 820px;
+    width: 950px;
+    border: 2px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: url('No Sleep.webp') no-repeat center center; /* 背景图片 */
+    background-size: cover; /* 调整背景图片大小 */
+}
+
+
+/* 其他样式保持不变 */
+.rectangle {
+    position: absolute;
+    width: 500px;
+    height: 50px; /* 自动适应内容高度 */
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    border: 1px solid black;
+    overflow-y: hidden; /* 启用垂直滚动 */
+    background-color: #fff;
+    transition: height 0.2s ease-in-out, bottom 0.3s ease-in-out;
+    display: flex; /* 启用 flexbox */
+    flex-direction: column; /* 子元素从上到下排列 */
+    align-items: center; /* 水平居中图片 */
+    gap: 10px; /* 图片之间的间距 */
+    padding: 10px; /* 内边距 */
+    box-sizing: border-box;
+}
+
+#circle2 {
+    position: absolute;
+    top: 50%; /* 垂直居中 */
+    right: -200px;
+    width: 750px; /* 设置圆形宽度 */
+    height: 750px; /* 设置圆形高度 */
+    background-color: #ff7e5f; /* 背景颜色 */
+    border-radius: 50%; /* 圆形 */
+    opacity: 0.5; /* 设置为 1，确保可见 */
+    transform: translate(-50%, -50%); /* 完全居中 */
+    z-index: -1; /* 确保在最上层 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* 添加阴影 */
+}
+
+
+
+
+.image-container {
+    overflow-y: scroll; /* 启用滚动功能 */
+    -ms-overflow-style: none; /* 隐藏 IE 滚动条 */
+    scrollbar-width: none; /* 隐藏 Firefox 滚动条 */
+    margin-top:15px;
+}
+
+.image-container::-webkit-scrollbar {
+    display: none; /* 隐藏 Chrome、Safari 滚动条 */
+}
+
+.rectangle:nth-child(n) {
+    bottom: 0;
+    left: calc((n - 1) * 25px);
+    height: calc((n + 1) * 25px);
+    z-index: calc(100 - n);
+}
+
+.rectangle img {
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    align-content: center;
+    width: 450px;
+    object-fit: cover; /* 图片裁剪模式 */
+}
+
+.rectangle::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 25px;
+    left: 5px;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    transform: rotate(180deg);
+}
+
+.rectangle .description-box {
+    position: absolute;
+    top: 500px;
+    left: 230px;
+    right: 50px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    z-index: 10;
+}
+
+.rectangle .description-box:hover {
+    background-color: #9a9a9a; /* 悬停时的背景颜色 (蓝色示例) */
+    color: white; /* 悬停时的文字颜色 (白色示例) */
+}
+
+.rectangle:nth-child(odd) {
+    background-color: #fff;
+    opacity: 95%;
+}
+
+.rectangle:nth-child(even) {
+    background-color: #f0f0f0;
+    opacity: 95%;
+}
+
+#hover-circle {
+    position: absolute;
+    top: 50%; /* 居中于 #outer-container */
+    right: 700px;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: #ff7e5f;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: all 0.4s ease-in-out;
+    z-index: -1;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 添加阴影 */
+}
+
+#hover-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.rotating {
+    animation: rotate 6s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(0, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(0, -50%) rotate(360deg);
+    }
+}
+
+/* infoBox 初始状态，隐藏在右侧 */
+#info-box {
+    position: absolute;
+    top: 50%; /* 垂直居中 */
+    right: -500px; /* 初始隐藏在 outer-container 右侧 */
+    transform: translateY(-50%); /* 垂直方向平移实现中心对齐 */
+    width: 450px; /* 矩形宽度 */
+    padding: 10px;
+    background-color: #fff; /* 背景颜色 */
+    border: 1px solid #000; /* 边框样式 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    border-radius: 10px 0 0 10px; /* 圆角效果 */
+    text-align: center; /* 文本居中对齐 */
+    font-size: 14px; /* 字体大小 */
+    z-index: 1000; /* 确保 infoBox 在最上层 */
+    transition: right 0.2s ease-in-out; /* 添加右侧滑入滑出的平滑过渡效果 */
+}
+
+/* infoBox 滑入状态 */
+#info-box.active {
+    right: -5px; /* 滑入到 outer-container 内部 */
+}
+
+/* 右上角文字框 */
+#top-right-box {
+    position: absolute;
+    top: 75px; /* 距离顶部 10px */
+    right: 75px; /* 距离右侧 10px */
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    border-radius: 50%; /* 圆角 */
+    text-align: center; /* 文字居中 */
+    line-height: 1.5; /* 行高 */
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000; /* 确保在最上层 */
+    white-space: pre-line; /* 使 \n 换行符生效 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 右下角图片框 */
+#bottom-right-box {
+    position: absolute;
+    bottom: 10px; /* 距离底部 10px */
+    right: 10px; /* 距离右侧 10px */
+    width: auto;
+    height: 140px;
+    overflow: hidden; /* 隐藏超出部分 */
+    border-radius: 5px; /* 圆角 */
+    z-index: 1000; /* 确保在最上层 */
+}
+
+#bottom-right-box img {
+    width: 100%; /* 图片填充整个框 */
+    height: 100%; /* 图片填充整个框 */
+    object-fit: cover; /* 保持比例填充 */
+}

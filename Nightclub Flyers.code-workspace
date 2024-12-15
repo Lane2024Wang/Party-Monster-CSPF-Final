@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../South-Sudan-Migration"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Nightclub Flyers"
+	}
+}
