@@ -264,7 +264,7 @@ const rectanglesConfig = [
         desc: 'In the 1990s, ...?', 
         imgIndex: 15, 
         imgCount: 8,
-        infoBox: "New Music Cafe, New York is one of more than 300 live performance venues listed in the Classic Posters Search by Venue Index. Each of the New Music Cafe concert posters, handbills, or other memorabilia items available at Classic Posters is described in detail; simply click the image to see the item detail page and all available information on that item, including the live concert or performance for which it was created, the artist who designed the artwork, as well as item availability, size, and condition details." 
+        infoText: "New Music Cafe, New York is one of more than 300 live performance venues listed in the Classic Posters Search by Venue Index. Each of the New Music Cafe concert posters, handbills, or other memorabilia items available at Classic Posters is described in detail; simply click the image to see the item detail page and all available information on that item, including the live concert or performance for which it was created, the artist who designed the artwork, as well as item availability, size, and condition details." 
     },
 ];
 
